@@ -14,8 +14,8 @@ b <- 5
 phi <- 0.1
 
 theta <- rbeta(n, a, b)
-#pass <- rzibinom(n, pts, theta, pstr0=phi)
-pass <- rbinom(n, pts, theta)
+pass <- rzibinom(n, pts, theta, pstr0=phi)
+#pass <- rbinom(n, pts, theta)
 
 model <- function() {
     for (i in 1:n) {
