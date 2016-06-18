@@ -19,14 +19,16 @@ pass <- rzibinom(n, pts, theta, pstr0=phi)
 
 model <- function() {
     for (i in 1:n) {
-        pass[i] ~ dbinom(theta[i], pts[i])
+        pass[i] ~ dbinom(zi.theta[i], pts[i])
+        zi.theta[i] <- theta[i] * z[i]
         theta[i] ~ dbeta(a, b)
+        z[i] ~ dbern(phi)
     }
 
     # priors
     a ~ dunif(0, 1000)
     b ~ dunif(0, 1000)
-    #phi[1:2] ~ ddirch(
+    phi ~ dbeta(1, 1)
 }
 
 model.data <- c("pass", "pts", "n")
