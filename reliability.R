@@ -15,7 +15,6 @@ phi <- 0.1
 
 theta <- rbeta(n, a, b)
 pass <- rzibinom(n, pts, theta, pstr0=phi)
-#pass <- rbinom(n, pts, theta)
 
 model <- function() {
     for (i in 1:n) {
@@ -33,15 +32,7 @@ model <- function() {
 }
 
 model.data <- c("pass", "pts", "n")
-model.inits <- function() {
-    inits <- list()
-    inits$a <- runif(1, 0, 1000)
-    inits$b <- runif(1, 0, 1000)
-#    inits$phi <- rbeta(1, 1)
-    return(inits)
-}
-#model.params <- c("a", "b")
 model.params <- c("a", "b", "phi")
 
-fit <- jags(model.data, model.inits, model.params, model, n.iter=5000)
+fit <- jags(model.data, NULL, model.params, model, n.iter=5000)
 fit
