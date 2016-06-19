@@ -34,5 +34,5 @@ model <- function() {
 model.data <- c("pass", "pts", "n")
 model.params <- c("a", "b", "phi")
 
-fit <- jags(model.data, NULL, model.params, model, n.iter=5000)
+fit <- jags(model.data, NULL, model.params, model, n.iter=10000)
 fit
