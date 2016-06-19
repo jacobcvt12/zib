@@ -4,10 +4,10 @@ library(R2jags)
 # https://faculty.franklin.uga.edu/dhall/sites/faculty.franklin.uga.edu.dhall/files/ZIMixed.pdf
 set.seed(1)
 n <- 200
-pts <- rpois(n, 100)
+pts <- rpois(n, 50)
 
 # overall beta parameters
-a <- 5
+a <- 1
 b <- 10
 
 # shared probability of structural zero
