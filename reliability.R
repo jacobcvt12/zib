@@ -7,8 +7,8 @@ n <- 200
 pts <- rpois(n, 100)
 
 # overall beta parameters
-a <- 25
-b <- 5
+a <- 5
+b <- 10
 
 # shared probability of structural zero
 phi <- 0.1
