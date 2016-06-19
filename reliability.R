@@ -20,15 +20,16 @@ pass <- rzibinom(n, pts, theta, pstr0=phi)
 model <- function() {
     for (i in 1:n) {
         pass[i] ~ dbinom(zi.theta[i], pts[i])
-        zi.theta[i] <- theta[i] * z[i]
+        zi.theta[i] <- theta[i] * z[i] + 0.00001
         theta[i] ~ dbeta(a, b)
-        z[i] ~ dbern(phi)
+        z[i] ~ dbern(phi.inverse)
     }
 
     # priors
     a ~ dunif(0, 1000)
     b ~ dunif(0, 1000)
-    phi ~ dbeta(1, 1)
+    phi <- 1 - phi.inverse
+    phi.inverse ~ dbeta(1, 1)
 }
 
 model.data <- c("pass", "pts", "n")
@@ -39,8 +40,8 @@ model.inits <- function() {
 #    inits$phi <- rbeta(1, 1)
     return(inits)
 }
-model.params <- c("a", "b")
-#model.params <- c("a", "b", "phi")
+#model.params <- c("a", "b")
+model.params <- c("a", "b", "phi")
 
 fit <- jags(model.data, model.inits, model.params, model, n.iter=5000)
 fit
