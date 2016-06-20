@@ -1,7 +1,8 @@
 library(R2jags)
+library(ggplot2)
 
 set.seed(1)
-n <- 200
+n <- 100
 
 # latent classes
 k <- 2
@@ -10,12 +11,13 @@ z <- sample(seq_len(k), n, replace=TRUE, prob=p)
 alpha <- rep(1, k)
 
 # overall beta parameters
-a <- c(1, 4)
-b <- c(5, 1)
+a <- c(2, 40)
+b <- c(50, 10)
 
 # generate theta
 theta <- rbeta(n, a[z], b[z])
-plot(density(theta))
+ggplot(data.frame(theta), aes(theta)) +
+    geom_density()
 
 model <- function() {
     for (i in 1:n) {
@@ -35,5 +37,5 @@ model <- function() {
 model.data <- c("theta", "alpha", "k", "n")
 model.params <- c("a", "b", "pi")
 
-fit <- jags(model.data, NULL, model.params, model, n.iter=100000)
+fit <- jags(model.data, NULL, model.params, model, n.iter=20000)
 fit
