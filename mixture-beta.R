@@ -1,7 +1,7 @@
 library(R2jags)
 
 set.seed(1)
-n <- 300
+n <- 200
 
 # latent classes
 k <- 2
@@ -10,7 +10,7 @@ z <- sample(seq_len(k), n, replace=TRUE, prob=p)
 alpha <- rep(1, k)
 
 # overall beta parameters
-a <- c(2, 4)
+a <- c(1, 4)
 b <- c(5, 1)
 
 # generate theta
