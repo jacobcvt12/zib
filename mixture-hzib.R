@@ -12,8 +12,8 @@ z <- sample(seq_len(k), n, replace=TRUE, prob=p)
 alpha <- rep(1, k)
 
 # overall beta parameters
-a <- c(1, 10)
-b <- c(10, 1)
+a <- c(2, 4)
+b <- c(5, 1)
 
 # shared probability of structural zero
 #phi <- 0.1
@@ -21,7 +21,7 @@ b <- c(10, 1)
 theta <- rbeta(n, a[z], b[z])
 #pass <- rzibinom(n, pts, theta, pstr0=phi)
 pass <- rbinom(n, pts, theta)
-#plot(density(pass / pts))
+plot(density(theta))
 
 model <- function() {
     for (i in 1:n) {
@@ -47,5 +47,5 @@ model <- function() {
 model.data <- c("pass", "pts", "n", "alpha", "k")
 model.params <- c("a", "b", "pi")
 
-fit <- jags(model.data, NULL, model.params, model, n.iter=10000)
+fit <- jags(model.data, NULL, model.params, model, n.iter=100000)
 fit
