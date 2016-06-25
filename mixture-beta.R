@@ -1,5 +1,4 @@
 library(R2jags)
-library(ggplot2)
 library(shinystan)
 
 set.seed(1)
@@ -17,8 +16,6 @@ b <- c(99, 50, 1)
 
 # generate theta
 theta <- rbeta(n, a[z], b[z])
-#ggplot(data.frame(theta), aes(theta)) +
-#       geom_density()
 
 model <- function() {
     for (i in 1:n) {
@@ -28,16 +25,20 @@ model <- function() {
     
     # priors
     for (cluster in 1:k) {
-        a[cluster] ~ dunif(0, 1000)
-        b[cluster] ~ dunif(0, 1000)
+        a[cluster] <- ((1 - mu[cluster]) / sigma.2[cluster] - 
+                       1 / mu[cluster]) * mu[cluster] ^ 2
+        b[cluster] <- a[cluster] * (1 / mu[cluster] - 1)
+
+        # prior on sigma^2|mu and mu
+        sigma.2[cluster] ~ dunif(0, mu[cluster] * (1 - mu[cluster]))
+        mu[cluster] ~ dbeta(1, 1)
     }
 
     pi ~ ddirch(alpha[])
 }
 
 model.data <- c("theta", "alpha", "k", "n")
-model.params <- c("a", "b", "pi", "z")
+model.params <- c("a", "b", "pi", "mu")
 
-fit <- jags(model.data, NULL, model.params, model, n.iter=500000)
-saveRDS(fit, file="mixture-beta.RDS")
-#launch_shinystan(as.shinystan(as.mcmc(fit)))
+fit <- jags(model.data, NULL, model.params, model, n.iter=50000)
+fit
