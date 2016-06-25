@@ -24,14 +24,13 @@ model <- function() {
     }
     
     # priors
-    for (cluster in 1:k) {
-        a[cluster] <- ((1 - mu[cluster]) / sigma.2[cluster] - 
-                       1 / mu[cluster]) * mu[cluster] ^ 2
-        b[cluster] <- a[cluster] * (1 / mu[cluster] - 1)
+    for (j in 1:k) {
+        a[j] <- ((1 - mu[j]) / sigma.2[j] - 1 / mu[j]) * mu[j] ^ 2
+        b[j] <- a[j] * (1 / mu[j] - 1)
 
         # prior on sigma^2|mu and mu
-        sigma.2[cluster] ~ dunif(0, mu[cluster] * (1 - mu[cluster]))
-        mu[cluster] ~ dbeta(1, 1)
+        sigma.2[j] ~ dunif(0, mu[j] * (1 - mu[j]))
+        mu[j] ~ dbeta(1, 1)
     }
 
     pi ~ ddirch(alpha[])
