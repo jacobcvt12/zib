@@ -28,10 +28,15 @@ model <- function() {
         a[j] <- ((1 - mu[j]) / sigma.2[j] - 1 / mu[j]) * mu[j] ^ 2
         b[j] <- a[j] * (1 / mu[j] - 1)
 
-        # prior on sigma^2|mu and mu
         sigma.2[j] ~ dunif(0, mu[j] * (1 - mu[j]))
-        mu[j] ~ dbeta(1, 1)
     }
+
+    # prior on sigma^2|mu and mu
+    for (j in 2:k) {
+        mu[j] ~ dbeta(1, 1) %_% T(mu[j-1], 1)
+    }
+
+    mu[1] ~ dbeta(1, 1)
 
     pi ~ ddirch(alpha[])
 }
@@ -39,5 +44,5 @@ model <- function() {
 model.data <- c("theta", "alpha", "k", "n")
 model.params <- c("a", "b", "pi", "mu")
 
-fit <- jags(model.data, NULL, model.params, model, n.iter=50000)
+fit <- jags(model.data, NULL, model.params, model, n.iter=30000)
 fit
