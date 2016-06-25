@@ -2,7 +2,7 @@ library(R2jags)
 library(shinystan)
 
 set.seed(1)
-n <- 100
+n <- 200
 
 # latent classes
 k <- 3
@@ -44,5 +44,5 @@ model <- function() {
 model.data <- c("theta", "alpha", "k", "n")
 model.params <- c("a", "b", "pi", "mu")
 
-fit <- jags(model.data, NULL, model.params, model, n.iter=30000)
+fit <- jags(model.data, NULL, model.params, model, n.iter=50000)
 fit
