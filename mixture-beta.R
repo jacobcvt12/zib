@@ -2,17 +2,17 @@ library(R2jags)
 library(shinystan)
 
 set.seed(1)
-n <- 200
+n <- 500
 
 # latent classes
 k <- 3
-p <- c(1/4, 1/2, 1/4)
+p <- rep(1/3, 3)
 z <- sample(seq_len(k), n, replace=TRUE, prob=p)
 alpha <- rep(1, k)
 
 # overall beta parameters
-a <- c(1, 50, 99)
-b <- c(99, 50, 1)
+a <- c(1, 500, 999)
+b <- c(999, 500, 1)
 
 # generate theta
 theta <- rbeta(n, a[z], b[z])
