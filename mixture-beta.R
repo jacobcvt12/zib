@@ -28,15 +28,17 @@ model <- function() {
         a[j] <- ((1 - mu[j]) / sigma.2[j] - 1 / mu[j]) * mu[j] ^ 2
         b[j] <- a[j] * (1 / mu[j] - 1)
 
+        # sigma^2 | mu
         sigma.2[j] ~ dunif(0, mu[j] * (1 - mu[j]))
     }
+    
+    # correct label switching issue
+    mu <- sort(mu.tmp)
 
-    # prior on sigma^2|mu and mu
-    for (j in 2:k) {
-        mu[j] ~ dbeta(1, 1) %_% T(mu[j-1], 1)
+    # prior on mu
+    for (j in 1:k) {
+        mu.tmp[j] ~ dbeta(1, 1)
     }
-
-    mu[1] ~ dbeta(1, 1)
 
     pi ~ ddirch(alpha[])
 }
