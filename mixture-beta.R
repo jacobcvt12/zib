@@ -2,17 +2,17 @@ library(R2jags)
 library(shinystan)
 
 set.seed(1)
-n <- 500
+n <- 50
 
 # latent classes
 k <- 3
-p <- rep(1/3, 3)
+p <- rep(1/k, k)
 z <- sample(seq_len(k), n, replace=TRUE, prob=p)
 alpha <- rep(1, k)
 
 # overall beta parameters
-a <- c(1, 500, 999)
-b <- c(999, 500, 1)
+a <- c(1, 50, 99)
+b <- c(99, 50, 1)
 
 # generate theta
 theta <- rbeta(n, a[z], b[z])
@@ -37,14 +37,26 @@ model <- function() {
 
     # prior on mu
     for (j in 1:k) {
-        mu.tmp[j] ~ dbeta(1, 1)
+        mu.tmp[j] ~ dbeta(mu.a[j], mu.b[j])
+        
+        # calculate parameters for component mean
+        mu.a[j] <- ((1 - mu.mu[j]) / mu.sigma.2[j] - 
+                    1 / mu.mu[j]) * mu.mu[j] ^ 2
+        mu.b[j] <- mu.a[j] * (1 / mu.mu[j] - 1)
+        
+        # individual prior on component mean variance
+        mu.sigma.2[j] ~ dunif(0, 0.25)
+        
+        # invidivual prior on component mean mean
+        mu.mu[j] ~ dbeta(1, 1)
     }
+    
 
     pi ~ ddirch(alpha[])
 }
 
 model.data <- c("theta", "alpha", "k", "n")
-model.params <- c("a", "b", "pi", "mu")
+model.params <- c("a", "b", "pi", "mu", "mu.a", "mu.b", "mu.mu", "mu.sigma.2")
 
 fit <- jags(model.data, NULL, model.params, model, n.iter=50000)
-fit
+launch_shinystan(as.shinystan(as.mcmc(fit)))
