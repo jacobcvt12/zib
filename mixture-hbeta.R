@@ -70,9 +70,8 @@ model <- function() {
 model.data <- c("X", "alpha", "k", "n")
 model.params <- c("mu.overall", "var.overall", "a", "b", "pi", "mu", "sigma.2")
 model.params <- c("var.overall")
-k <- 10
+k <- 20
 alpha <- rep(1, k)
 
 fit <- jags(model.data, NULL, model.params, model, n.iter=2000)
-fit
-#launch_shinystan(as.shinystan(as.mcmc(fit)))
+launch_shinystan(as.shinystan(as.mcmc(fit)))
