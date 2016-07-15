@@ -79,7 +79,19 @@ In practice, an infinite mixture like \eqref{eq:infinitemix-betabinom} is implem
 
 In Figure~\ref{fig:diagram}, we show the relationship of the parameters. For us, the parameters of interest are those highlighted in blue. The only portion of this diagram that is actually observed is the data, highlighted in red. The rest of the parameters are nuisance parameters invented to improve the performance of the Markov Chain Monte Carlo.
 
+Explicitly, we assume the data arrives to us as
 
+\begin{equation}\label{eq:data}
+    X_i \sim \text{Binom}(\theta_i, n_i)
+\end{equation}
+
+Next, we consider the $\theta$'s to be draws from a mixture of Beta's, each with their own $\alpha$ and $\beta$.
+
+\begin{equation}\label{eq:theta}
+    \theta_i \sim \text{Beta}(\alpha_k, \beta_k)
+\end{equation}
+
+Where the component of each $\theta_i$ is indicated by $z_i$. However, the reader will note that the diagram indicates that the Beta distributions for the $\theta_i$'s is parameterized in terms of $\mu$ (mean) and $\sigma^2$ (variance).
 
 \section{Discussion}
 
