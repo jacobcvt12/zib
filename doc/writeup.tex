@@ -47,10 +47,10 @@ In practice, an infinite mixture like \eqref{eq:infinitemix-betabinom} is implem
 \matrix[matrix of math nodes, column sep=20pt, row sep=20pt] (mat)
 {
     \alpha_k &[2em] & & & \\
-    \pi_k & & \mu_{\mu_k} & & \sigma^2_{\mu_k}|\mu_{\mu_k} \\
-    z_i & \sigma^2_k | \mu_{(k)} & & \mu_{(k)} \\[3em]
-        & \theta_i \\
-        & X_i \\
+    |[blue]|\pi_k & & \mu_{\mu_k} & & \sigma^2_{\mu_k}|\mu_{\mu_k} \\
+    z_i & |[blue]|\sigma^2_k | \mu_{(k)} & & |[blue]|\mu_{(k)} \\[3em]
+        & |[blue]|\theta_i \\
+        & |[red]|X_i \\
 };
 
 % draw arrows
@@ -71,7 +71,7 @@ In practice, an infinite mixture like \eqref{eq:infinitemix-betabinom} is implem
 \label{fig:diagram}
 \end{figure}
 
-In figure~\ref{fig:diagram}
+In Figure~\ref{fig:diagram}, we show the relationship of the parameters. For us, the parameters of interest are those highlighted in blue. The only portion of this diagram that is actually observed is the data, highlighted in red.
 
 Here's some text
 
