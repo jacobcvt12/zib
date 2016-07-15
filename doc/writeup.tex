@@ -2,6 +2,7 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{amssymb}
+\usepackage{caption}
 \usepackage{tikz}
 \usetikzlibrary{matrix}
 
@@ -22,33 +23,57 @@ When we have binomial data from different (but related) sources, we often want t
 
 where the variance between the souces follows the definition of a Beta distribution with the approximated $\alpha, \beta$ parameters. However, the problem with \eqref{betabinom} is that we force the typically uni-modal assumption on the underylying distribution of the $\theta$'s. A natural extension is to use a \textit{mixture of Beta} distributions for the hierarchical distribution.
 
-\begin{equation}\label{finitemix-betabinom}
+\begin{equation}\label{eq:finitemix-betabinom}
 \theta_i \sim \sum_i^K pi_i \times \text{Beta}(\alpha_k, \beta_k)
 \end{equation}
 
-\eqref{finitemix-betabinom} allows for a more flexible hierarchical distribution. However, we have now introduced a different problem - how do you decide on $K$?
+\ref{eq:finitemix-betabinom} allows for a more flexible hierarchical distribution. However, we have now introduced a different problem - how do you decide on $K$?
 
 \section{Methods}
 
-A solution arrives from the field of \textbf{Nonparametric Bayesian Statistics}. Instead of \eqref{finitemix-betabinom}, a more relaxed choice is an \textit{infinite mixture model}
+A solution arrives from the field of \textbf{Nonparametric Bayesian Statistics}. Instead of \ref{eq:finitemix-betabinom}, a more relaxed choice is an \textit{infinite mixture model}
 
-\begin{equation}\label{infinitemix-betabinom}
+\begin{equation}\label{eq:infinitemix-betabinom}
 \theta_i \sim \sum_i^{\infty} pi_i \times \text{Beta}(\alpha_k, \beta_k)
 \end{equation}
 
-In practice, an infinite mixture like \eqref{infinitemix-betabinom} is implemented as a \textbf{Dirichlet Process Mixture}. Here, I have elected to use \eqref{finitemix-betabinom}, but with a large $K$.
+In practice, an infinite mixture like \ref{eq:infinitemix-betabinom} is implemented as a \textbf{Dirichlet Process Mixture}. Here, I have elected to use \ref{eq:finitemix-betabinom}, but with a large $K$.
 
+\begin{figure}
+\centering
 \begin{tikzpicture}
 
+% write symbols
 \matrix[matrix of math nodes, column sep=20pt, row sep=20pt] (mat)
 {
-        & \mu, \tau^2 & \\
-        \theta_1 & \ldots & \theta_n \\
-        y_1 & \ldots & y_n \\
-        & \sigma^2 & \\
+    \alpha_k &[2em] & & & \\
+    \pi_k & & \mu_{\mu_k} & & \sigma^2_{\mu_k}|\mu_{\mu_k} \\
+    z_i & \sigma^2_k | \mu_{(k)} & & \mu_{(k)} \\[3em]
+        & \theta_i \\
+        & X_i \\
 };
 
+% draw arrows
+\draw[->,>=latex] (mat-1-1) -- (mat-2-1);
+\draw[->,>=latex] (mat-2-1) -- (mat-3-1);
+\draw[->,>=latex] (mat-3-1) -- (mat-4-2);
+\draw[->,>=latex] (mat-4-2) -- (mat-5-2);
+
+\draw[->,>=latex] (mat-3-2) -- (mat-4-2);
+
+\draw[->,>=latex] (mat-2-3) -- (mat-3-4);
+\draw[->,>=latex] (mat-2-5) -- (mat-3-4);
+
+\draw[->,>=latex] (mat-3-4) -- (mat-4-2);
+
 \end{tikzpicture}
+\captionof{figure}{Sample picture}
+\label{fig:diagram}
+\end{figure}
+
+In figure~\ref{fig:diagram}
+
+Here's some text
 
 \section{Discussion}
 
