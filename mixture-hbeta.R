@@ -8,7 +8,6 @@ n <- 50
 k <- 3
 p <- rep(1/k, k)
 z <- sample(seq_len(k), n, replace=TRUE, prob=p)
-alpha <- rep(1, k)
 
 # overall beta parameters
 a <- c(1, 5, 9)
@@ -33,7 +32,8 @@ model <- function() {
         z[i] ~ dcat(pi[])
     }
     
-    # calculate overall mean
+    # calculate overall mean and variance
+    var.overall <- pi %*% (mu^2 + sigma.2) - mu.overall^2
     mu.overall <- mu %*% pi
     
     # priors
@@ -68,7 +68,10 @@ model <- function() {
 }
 
 model.data <- c("X", "alpha", "k", "n")
-model.params <- c("mu.overall", "a", "b", "pi", "mu", "sigma.2")
+model.params <- c("mu.overall", "var.overall", "a", "b", "pi", "mu", "sigma.2")
+model.params <- c("var.overall")
+k <- 10
+alpha <- rep(1, k)
 
 fit <- jags(model.data, NULL, model.params, model, n.iter=2000)
 fit
