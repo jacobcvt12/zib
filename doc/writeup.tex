@@ -18,7 +18,13 @@ When we have binomial data from different (but related) sources, we often want t
 \theta_i \sim \text{Beta}(\alpha, \beta)
 \end{equation}
 
-where the variance between the souces follows the definition of a Beta distribution with the approximated $\alpha, \beta$ parameters.
+where the variance between the souces follows the definition of a Beta distribution with the approximated $\alpha, \beta$ parameters. However, the problem with \eqref{betabinom} is that we force the typically uni-modal assumption on the underylying distribution of the $\theta$'s. A natural extension is to use a \textit{mixture of Beta} distributions for the hierarchical distribution.
+
+\begin{equation}\label{finitemix-betabinom}
+\theta_i \sim \sum_i^K pi_i \times \text{Beta}(\alpha_k, \beta_k)
+\end{equation}
+
+\eqref{finitemix-betabinom} allows for a more flexible hierarchical distribution. However, we have now introduced a different problem - how do you decide on $K$?
 
 \section{Methods}
 
