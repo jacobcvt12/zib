@@ -6,6 +6,11 @@
 \usepackage{tikz}
 \usetikzlibrary{matrix}
 
+\newlength\tindent
+\setlength{\tindent}{\parindent}
+\setlength{\parindent}{0pt}
+\renewcommand{\indent}{\hspace*{\tindent}}
+
 \begin{document}
 
 \title{Hierarchical Binomials Using an Approximate Infinite Mixture of Betas}
