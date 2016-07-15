@@ -45,18 +45,17 @@ model <- function() {
         mu.b[j] <- mu.a[j] * (1 / mu.mu[j] - 1)
         
         # individual prior on component mean variance
-        mu.sigma.2[j] ~ dunif(0, 0.25)
+        mu.sigma.2[j] ~ dunif(0, mu.mu[j] * (1 - mu.mu[j]))
         
         # invidivual prior on component mean mean
         mu.mu[j] ~ dbeta(1, 1)
     }
     
-
     pi ~ ddirch(alpha[])
 }
 
 model.data <- c("theta", "alpha", "k", "n")
-model.params <- c("a", "b", "pi", "mu", "mu.a", "mu.b", "mu.mu", "mu.sigma.2")
+model.params <- c("a", "b", "pi", "mu", "sigma.2")
 
-fit <- jags(model.data, NULL, model.params, model, n.iter=50000)
+fit <- jags(model.data, NULL, model.params, model, n.iter=2000)
 launch_shinystan(as.shinystan(as.mcmc(fit)))
