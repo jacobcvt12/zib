@@ -27,17 +27,17 @@ where the variance between the souces follows the definition of a Beta distribut
 \theta_i \sim \sum_i^K pi_i \times \text{Beta}(\alpha_k, \beta_k)
 \end{equation}
 
-\ref{eq:finitemix-betabinom} allows for a more flexible hierarchical distribution. However, we have now introduced a different problem - how do you decide on $K$?
+\eqref{eq:finitemix-betabinom} allows for a more flexible hierarchical distribution. However, we have now introduced a different problem - how do you decide on $K$?
 
 \section{Methods}
 
-A solution arrives from the field of \textbf{Nonparametric Bayesian Statistics}. Instead of \ref{eq:finitemix-betabinom}, a more relaxed choice is an \textit{infinite mixture model}
+A solution arrives from the field of \textbf{Nonparametric Bayesian Statistics}. Instead of \eqref{eq:finitemix-betabinom}, a more relaxed choice is an \textit{infinite mixture model}
 
 \begin{equation}\label{eq:infinitemix-betabinom}
 \theta_i \sim \sum_i^{\infty} pi_i \times \text{Beta}(\alpha_k, \beta_k)
 \end{equation}
 
-In practice, an infinite mixture like \ref{eq:infinitemix-betabinom} is implemented as a \textbf{Dirichlet Process Mixture}. Here, I have elected to use \ref{eq:finitemix-betabinom}, but with a large $K$.
+In practice, an infinite mixture like \eqref{eq:infinitemix-betabinom} is implemented as a \textbf{Dirichlet Process Mixture}. Here, I have elected to use \eqref{eq:finitemix-betabinom}, but with a large $K$.
 
 \begin{figure}
 \centering
