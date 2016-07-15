@@ -1,18 +1,24 @@
 library(R2jags)
 library(shinystan)
 
-set.seed(1)
+set.seed(42)
 n <- 50
 
 # latent classes
-k <- 2
+k <- 3
 p <- rep(1/k, k)
 z <- sample(seq_len(k), n, replace=TRUE, prob=p)
 alpha <- rep(1, k)
 
 # overall beta parameters
-a <- c(1, 9)
-b <- c(9, 1)
+a <- c(1, 5, 9)
+b <- c(9, 5, 1)
+
+# calculate true overall means and variance of the mixture
+means <- a / (a + b)
+variances <- means * (1 - means) / (a + b + 1)
+mean.overall <- means %*% p
+var.overall <- p %*% (means^2 + variances) - mean.overall^2
 
 # generate theta
 theta <- rbeta(n, a[z], b[z])
@@ -26,6 +32,9 @@ model <- function() {
         theta[i] ~ dbeta(a[z[i]], b[z[i]])
         z[i] ~ dcat(pi[])
     }
+    
+    # calculate overall mean
+    mu.overall <- mu %*% pi
     
     # priors
     for (j in 1:k) {
@@ -59,7 +68,8 @@ model <- function() {
 }
 
 model.data <- c("X", "alpha", "k", "n")
-model.params <- c("theta", "a", "b", "pi", "mu", "sigma.2")
+model.params <- c("mu.overall", "a", "b", "pi", "mu", "sigma.2")
 
 fit <- jags(model.data, NULL, model.params, model, n.iter=2000)
-launch_shinystan(as.shinystan(as.mcmc(fit)))
+fit
+#launch_shinystan(as.shinystan(as.mcmc(fit)))
