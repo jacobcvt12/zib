@@ -4,3 +4,7 @@
 .Ruserdata
 zib.Rproj
 *.RDS
+*.aux
+*.log
+*.pdf
+*.swp
