@@ -1,5 +1,7 @@
 \documentclass{article}
 \usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
 
 \begin{document}
 
@@ -9,6 +11,14 @@
 \maketitle
 
 \section{Introduction}
+
+When we have binomial data from different (but related) sources, we often want to share information between them. However, differences between the sources causes a false reduction in variance to pool the data together, and modeling them separately loses information. In this instance, I was interested in the variance between the sources. A typical model choice is a \textit{Beta-Binomial model} written
+
+\begin{equation}\label{betabinom}
+\theta_i \sim \text{Beta}(\alpha, \beta)
+\end{equation}
+
+where the variance between the souces follows the definition of a Beta distribution with the approximated $\alpha, \beta$ parameters.
 
 \section{Methods}
 
