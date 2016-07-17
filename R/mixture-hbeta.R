@@ -48,7 +48,7 @@ model <- function() {
     pi ~ ddirch(alpha[])
 }
 
-k <- 20 # number of components approx infinity
+k <- 3 # number of components = truth
 alpha <- rep(1, k) # prior on pi
 
 model.data <- c("X", "alpha", "k", "n")
@@ -57,9 +57,10 @@ model.params <- c("var.overall", "theta")
 # fit model
 set.seed(42)
 fit <- jags(model.data, NULL, model.params, model, n.iter=2000)
+saveRDS(fit, "output/true-beta.RDS")
 
 # diagnose model
-launch_shinystan(as.shinystan(as.mcmc(fit)))
+# launch_shinystan(as.shinystan(as.mcmc(fit)))
 
 # save results
-saveRDS(fit, "output/inf-mix-beta-binomial.RDS")
+# saveRDS(fit, "output/inf-mix-beta-binomial.RDS")
