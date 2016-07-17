@@ -56,7 +56,7 @@ model.params <- c("var.overall", "theta")
 
 # fit model
 set.seed(42)
-fit <- jags(model.data, NULL, model.params, model, n.iter=2000)
+fit <- jags(model.data, NULL, model.params, model, n.iter=20000)
 saveRDS(fit, "output/true-beta.RDS")
 
 # diagnose model
