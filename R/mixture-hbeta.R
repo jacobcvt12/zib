@@ -48,16 +48,16 @@ model <- function() {
     pi ~ ddirch(alpha[])
 }
 
-k <- 3 # number of components = truth
+k <- 7 # number of components = truth
 alpha <- rep(1, k) # prior on pi
 
 model.data <- c("X", "alpha", "k", "n")
 model.params <- c("var.overall", "theta")
 
 # fit model
-set.seed(42)
-fit <- jags(model.data, NULL, model.params, model, n.iter=20000)
-saveRDS(fit, "output/true-beta.RDS")
+set.seed(41)
+fit <- jags(model.data, NULL, model.params, model, n.iter=10000)
+#saveRDS(fit, "output/true-beta.RDS")
 
 # diagnose model
 # launch_shinystan(as.shinystan(as.mcmc(fit)))
