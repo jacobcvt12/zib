@@ -83,7 +83,8 @@ ggplot(var.data, aes(x=between.var)) +
                colour="blue", linetype=2) +
     geom_vline(xintercept=0.04259, colour="orange", 
                linetype=2) +
-    facet_wrap(~model) +
+    facet_wrap(~model, nrow=3) +
+    scale_y_continuous(breaks=NULL) +
     xlab("Between Variance") +
     ggtitle("Comparison of Between Variance Approximations")
 dev.off()
