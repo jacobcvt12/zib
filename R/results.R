@@ -1,6 +1,7 @@
 library(R2jags)
 library(coda)
 library(ggplot2)
+library(dplyr)
 theme_set(theme_bw())
 
 # read in results
@@ -51,6 +52,43 @@ reliability <- function(mcmc) {
   return(reliability.intervals)
 }
 
+# graphic of between variance
+bb.df <- data.frame(bb.mcmc)
+bmb.df <- data.frame(bmb.mcmc)
+dpb.df <- data.frame(dpb.mcmc)
+bb.df$model <- "Beta Binomial"
+bmb.df$model <- "Beta-Mixture Binomial"
+dpb.df$model <- "DP Binomial"
+cols <- c(1, ncol(bb.df))
+
+var.data <- bind_rows(bb.df[, cols], 
+                      bmb.df[, cols], 
+                      dpb.df[, cols]) %>% 
+    mutate(model=factor(model,
+                        levels=c("Beta Binomial",
+                                 "Beta-Mixture Binomial",
+                                 "DP Binomial")))
+
+var.data.hpd <- var.data %>% 
+    group_by(model) %>% 
+    summarise(hpdl=HPDinterval(as.mcmc(between.var))[1],
+              hpdu=HPDinterval(as.mcmc(between.var))[2])
+
+pdf("output/variance.pdf")
+ggplot(var.data, aes(x=between.var)) +
+    geom_density() +
+    geom_vline(data=var.data.hpd, aes(xintercept=hpdl),
+               colour="blue", linetype=2) +
+    geom_vline(data=var.data.hpd, aes(xintercept=hpdu),
+               colour="blue", linetype=2) +
+    geom_vline(xintercept=0.04259, colour="orange", 
+               linetype=2) +
+    facet_wrap(~model) +
+    xlab("Between Variance") +
+    ggtitle("Comparison of Between Variance Approximations")
+dev.off()
+
+# graphic of reliability
 rel.bb <- data.frame(t(reliability(bb.mcmc)))
 rel.bb$id <- 1:nrow(rel.bb)
 rel.bb$model <- "Beta Binomial"
@@ -63,11 +101,11 @@ rel.dpb <- data.frame(t(reliability(dpb.mcmc)))
 rel.dpb$id <- 1:nrow(rel.dpb)
 rel.dpb$model <- "DP Binomial"
 
-rel.data <- rbind(rel.bb, rel.bmb, rel.dpb)
-rel.data$model <- factor(rel.data$model,
-                         levels=c("Beta Binomial",
-                                  "Beta-Mixture Binomial",
-                                  "DP Binomial"))
+rel.data <- bind_rows(rel.bb, rel.bmb, rel.dpb) %>% 
+    mutate(model=factor(model,
+                        levels=c("Beta Binomial",
+                                 "Beta-Mixture Binomial",
+                                 "DP Binomial")))
 
 pdf("output/reliability.pdf")
 ggplot(rel.data, aes(x=id, y=X50.)) +
