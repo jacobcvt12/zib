@@ -7,6 +7,10 @@ N <- 5 * 10 + 2 # choice according to ohlssen et al 2006
 
 # mixture of beta binomial model
 model <- function() {
+    # random effects distribution mean and variance
+    re.var <- pi %*% (re.mean^2) - re.mean ^ 2
+    re.mean <- pi %*% theta
+    
     # random effects
     for (i in 1:n) {
         X[i] ~ dbinom(theta[Z[i]], 100)
@@ -48,14 +52,15 @@ model <- function() {
 }
 
 model.data <- c("X", "n", "N")
-model.params <- c("a", "b", "alpha", "pi", "theta")
+model.params <- c("a", "b", "alpha", "pi", "theta",
+                  "re.mean", "re.var")
 
 # fit model
-set.seed(42)
-fit <- jags(model.data, NULL, model.params, model, n.iter=1000)
+set.seed(41)
+fit <- jags(model.data, NULL, model.params, model, n.iter=2000)
 
 # diagnose model
 launch_shinystan(as.shinystan(as.mcmc(fit)))
 
 # save results
-saveRDS(fit, "output/dp-binomial.RDS")
+#saveRDS(fit, "output/dp-binomial.RDS")
