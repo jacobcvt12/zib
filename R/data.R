@@ -1,6 +1,6 @@
 # generate binomial draws using hierarchical 3-mixture beta
 set.seed(42)
-n <- 50
+n <- 100
 
 # latent classes
 k <- 3
