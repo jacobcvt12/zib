@@ -34,18 +34,18 @@ model <- function() {
     
     # baseline distribution
     for (k in 1:N) {
-        theta[k] ~ dbeta(a, b)   
+        theta[k] ~ dbeta(1, 1)   
     }
     
     # alpha, beta parameters of baseline calculated
-    a <- ((1 - mu) / sigma.2 - 1 / mu) * mu ^ 2
-    b <- a * (1 / mu - 1)
-    
-    # variance | mean of baseline distribution
-    sigma.2 ~ dunif(0, mu * (1-mu))
-    
-    # mean of baseline distribution
-    mu ~ dbeta(1, 1)
+    #a <- ((1 - mu) / sigma.2 - 1 / mu) * mu ^ 2 + 0.01
+    #b <- a * (1 / mu - 1) + 0.01
+    #
+    ## variance of baseline distribution
+    #sigma.2 ~ dunif(0.01, mu * (1-mu))
+    #
+    ## mean of baseline distribution
+    #mu ~ dbeta(1, 1)
     
     # DPP parameter prior
     alpha ~ dunif(0.3, 10)
@@ -56,8 +56,9 @@ model.params <- c("a", "b", "alpha", "pi", "theta",
                   "re.mean", "re.var")
 
 # fit model
-set.seed(41)
-fit <- jags(model.data, NULL, model.params, model, n.iter=2000)
+set.seed(42)
+fit <- jags(model.data, NULL, model.params, model, 
+            n.iter=20000)
 
 # diagnose model
 launch_shinystan(as.shinystan(as.mcmc(fit)))
