@@ -47,13 +47,12 @@ model <- function() {
 }
 
 model.data <- c("X", "n", "N")
-model.params <- c("alpha", "pi", "theta",
-                  "p", "re.mean", "re.var")
+model.params <- c("p", "re.var")
 
 # fit model
 set.seed(42)
 fit <- jags(model.data, NULL, model.params, model, 
-            n.iter=20000)
+            n.iter=30000)
 
 # diagnose model
 launch_shinystan(as.shinystan(as.mcmc(fit)))
