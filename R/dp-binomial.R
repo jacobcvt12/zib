@@ -3,7 +3,7 @@ library(shinystan)
 
 X <- readRDS("data/binomial.RDS")
 n <- length(X)
-N <- 5 * 10 + 2 # choice according to ohlssen et al 2006
+N <- 5 * 10 + 2 # choice according to ohlssen et al 2007
 
 # mixture of beta binomial model
 model <- function() {
