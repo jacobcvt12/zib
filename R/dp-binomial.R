@@ -8,7 +8,7 @@ N <- 5 * 10 + 2 # choice according to ohlssen et al 2006
 # mixture of beta binomial model
 model <- function() {
     # random effects distribution mean and variance
-    re.var <- pi %*% (re.mean^2) - re.mean ^ 2
+    re.var <- pi %*% (theta^2) - re.mean ^ 2
     re.mean <- pi %*% theta
     
     # random effects
