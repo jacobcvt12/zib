@@ -39,26 +39,15 @@ model <- function() {
     }
     
     # alpha, beta parameters of baseline calculated
-    a <- ((1 - mu) / sigma.2 - 1 / mu) * mu ^ 2
-    b <- a * (1 / mu - 1)
-    
-    # variance of baseline distribution
-    sigma.2 ~ dunif(0, mu * (1-mu))
-    
-    # mean of baseline distribution
-    mu ~ dbeta(mu.a, mu.b)
-    
-    mu.a <- ((1 - mu.mu) / mu.sigma.2 - 1 / mu.mu) * mu.mu ^ 2
-    mu.b <- mu.a * (1 / mu.mu - 1)
-    mu.sigma.2 ~ dunif(0, mu.mu * (1-mu.mu))
-    mu.mu ~ dbeta(1, 1)
+    a <- 1
+    b <- 1
     
     # DPP parameter prior
     alpha ~ dunif(0.3, 10)
 }
 
 model.data <- c("X", "n", "N")
-model.params <- c("a", "b", "alpha", "pi", "theta",
+model.params <- c("alpha", "pi", "theta",
                   "p", "re.mean", "re.var")
 
 # fit model
