@@ -58,4 +58,4 @@ fit <- jags(model.data, NULL, model.params, model,
 launch_shinystan(as.shinystan(as.mcmc(fit)))
 
 # save results
-#saveRDS(fit, "output/dp-binomial.RDS")
+saveRDS(fit, "output/dp-binomial.RDS")
