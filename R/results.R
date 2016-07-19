@@ -120,3 +120,4 @@ ggplot(rel.data, aes(x=id, y=X50.)) +
   ylab("Reliability") +
   ggtitle("Reliability Estimated by Site")
 dev.off()
+
