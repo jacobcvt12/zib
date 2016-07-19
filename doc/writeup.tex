@@ -6,7 +6,16 @@
 \usepackage{tikz}
 \usepackage{color}
 \usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{hyperref}
 \usetikzlibrary{matrix}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=blue,      
+    urlcolor=blue
+}
 
 \newlength\tindent
 \setlength{\tindent}{\parindent}
@@ -100,6 +109,25 @@ A solution arrives from the field of \textbf{Nonparametric Bayesian Statistics}.
 In practice, an infinite mixture like \eqref{eq:infinitemix-betabinom} is implemented as a \textbf{Dirichlet Process}~\cite{gelman2004}. A Dirichlet Process can be considered as an infinite dimensional \textit{distribution over distributions} using some base probability measure. For us, we consider the mixing distribution to be a Dirichlet Process over a Beta$(1, 1)$ distribution. While we know longer can make inference on the components as easily, we can still make inference on characteristics of the Dirichlet Process, such as the \textit{variance}, which is the only important piece for us. This approach allows us to use a flexible \textit{Nonparametric} approach without forcing the data into a model that may not fit well.
 
 \section{Results}
+
+To assess the performance of these models, we simulated the 100 observations as
+
+\begin{equation}\label{eq:data-sim}
+    \begin{split}
+    \theta_i &\sim \frac{1}{2} \text{Beta}(1, 99) + \frac{3}{20} \text{Beta}(30, 70) +\frac{7}{20} \text{Beta}(45, 55) \\
+    X_i &\sim \text{Binomial}(\theta_i, 100)
+    \end{split}
+\end{equation}
+
+Three models were fit to this simulated data
+
+\begin{enumerate}[1]
+    \item The simple Beta Binomial
+    \item The Beta Mixture Binomial model (with true $k=3$ chosen)
+    \item The Dirichlet Process model
+\end{enumerate}
+
+Code for the simulation and model fit can be found at \url{https://github.com/jacobcvt12/zib}.
 
 \begin{figure}
 \includegraphics{variance}
