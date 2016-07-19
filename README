@@ -8,7 +8,17 @@ to perform three types of analysis
 
 These programs should be run from the root of the package (i.e. `R -f
 R/dp-binomial.R`) to produce output graphs in `doc/`, models in `output`, and
-data in `data`. To compile the latex document, run (from `doc/`) 
+data in `data`. To produce the data, models, and graphs, run
+
+```
+R -f R/data.R
+R -f beta-binomial.R
+R -f betamix-binomial.R
+R -f dp-binomial.R
+R -f results.R
+```
+
+To compile the latex document, run (from `doc/`) 
 
 ```
 pdflatex writeup
