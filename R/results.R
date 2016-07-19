@@ -74,7 +74,7 @@ var.data.hpd <- var.data %>%
     summarise(hpdl=HPDinterval(as.mcmc(between.var))[1],
               hpdu=HPDinterval(as.mcmc(between.var))[2])
 
-pdf("output/variance.pdf")
+pdf("doc/variance.pdf")
 ggplot(var.data, aes(x=between.var)) +
     geom_density() +
     geom_vline(data=var.data.hpd, aes(xintercept=hpdl),
@@ -108,7 +108,7 @@ rel.data <- bind_rows(rel.bb, rel.bmb, rel.dpb) %>%
                                  "Beta-Mixture Binomial",
                                  "DP Binomial")))
 
-pdf("output/reliability.pdf")
+pdf("doc/reliability.pdf")
 ggplot(rel.data, aes(x=id, y=X50.)) +
   geom_line() +
   geom_ribbon(aes(ymin=X2.5., ymax=X97.5.),
