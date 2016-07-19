@@ -89,6 +89,8 @@ Next, we consider the $\theta$'s to be draws from a mixture of Beta's, each with
 
 Where the component of each $\theta_i$ is indicated by $z_i$. However, the reader will note that the diagram indicates that the Beta distributions for the $\theta_i$'s is parameterized in terms of $\mu$ (mean) and $\sigma^2$ (variance). This is a somewhat artifical construction to improve mixing. Instead we place a Beta$(1, 1)$ prior on the means and a Uniform$(0, \mu * (1-\mu))$ prior on the variance given the mean.
 
+This mixture model performs very well, and reduces the uncertainty of the between variance compared to the misspecified Beta Binomial model. However, a mixture model requires an \textit{a priori} specifiction of the number of components. Sometimes, we have such prior knowledge - for example, we may know that sites have either a high probability of listing a patient on a mediciation or a low probability. But often we have no such prior knowledge. 
+
 A solution arrives from the field of \textbf{Nonparametric Bayesian Statistics}. Instead of \eqref{eq:finitemix-betabinom}, a more relaxed choice is an \textit{infinite mixture model}
 
 \begin{equation}\label{eq:infinitemix-betabinom}
