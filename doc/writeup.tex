@@ -43,7 +43,7 @@ where the variance between the souces follows the definition of a Beta distribut
 
 \section{Methods}
 
-To approximate the parameters for such a Beta-Mixture Binomial model, we consider representation in Figure~\ref{fig:diagram}
+To approximate the parameters for such a Beta-Mixture Binomial model, we consider representation in Figure~\ref{fig:diagram}. In this figure, we show the relationship of the parameters. For us, the parameters of interest are those highlighted in {\color{blue}blue}. The only portion of this diagram that is actually observed is the data, highlighted in {\color{orange}orange}. The rest of the parameters are nuisance parameters invented to improve the performance of the Markov Chain Monte Carlo. \\
 
 \begin{figure}
 \centering
@@ -75,8 +75,6 @@ To approximate the parameters for such a Beta-Mixture Binomial model, we conside
 \label{fig:diagram}
 \end{figure}
 
-In Figure~\ref{fig:diagram}, we show the relationship of the parameters. For us, the parameters of interest are those highlighted in {\color{blue}blue}. The only portion of this diagram that is actually observed is the data, highlighted in {\color{orange}orange}. The rest of the parameters are nuisance parameters invented to improve the performance of the Markov Chain Monte Carlo.
-
 Explicitly, we assume the data arrives to us as
 
 \begin{equation}\label{eq:data}
@@ -89,7 +87,7 @@ Next, we consider the $\theta$'s to be draws from a mixture of Beta's, each with
     \theta_i \sim \text{Beta}(\alpha_k, \beta_k)
 \end{equation}
 
-Where the component of each $\theta_i$ is indicated by $z_i$. However, the reader will note that the diagram indicates that the Beta distributions for the $\theta_i$'s is parameterized in terms of $\mu$ (mean) and $\sigma^2$ (variance). This is a somewhat artifical construction to improve mixing.
+Where the component of each $\theta_i$ is indicated by $z_i$. However, the reader will note that the diagram indicates that the Beta distributions for the $\theta_i$'s is parameterized in terms of $\mu$ (mean) and $\sigma^2$ (variance). This is a somewhat artifical construction to improve mixing. Instead we place a Beta$(1, 1)$ prior on the means and a Uniform$(0, \mu * (1-\mu))$ prior on the variance given the mean.
 
 A solution arrives from the field of \textbf{Nonparametric Bayesian Statistics}. Instead of \eqref{eq:finitemix-betabinom}, a more relaxed choice is an \textit{infinite mixture model}
 
