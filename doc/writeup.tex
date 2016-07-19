@@ -13,6 +13,8 @@
 \setlength{\parindent}{0pt}
 \renewcommand{\indent}{\hspace*{\tindent}}
 
+\bibliographystyle{plain}
+
 \begin{document}
 
 \title{Estimating Reliability of EHR Data using a Dirichlet Process Prior}
@@ -22,7 +24,7 @@
 
 \section{Introduction}
 
-EHR data is not perfect. The "accuracy" of individual measurements is not perfect. One measure of this "accuracy" is \textbf{reliability}. \textit{definition and ref here}. Typically, reliability is estimated from data with repeat measurements. However, this idea is logistically impossible to implement in EHR data, as there is usually only one set of EHR data. Instead, one approach is to use a hierarchical model and calculate the "signal to noise" of the measure [ref]. \\
+EHR data is not perfect~\cite{kanger2014}. The "accuracy" of individual measurements is not perfect. One measure of this "accuracy" is \textbf{reliability}. \textit{definition and ref here}. Typically, reliability is estimated from data with repeat measurements. However, this idea is logistically impossible to implement in EHR data, as there is usually only one set of EHR data. Instead, one approach is to use a hierarchical model and calculate the "signal to noise" of the measure [ref]. \\
 
 In our example, we have information about combination therapy for heart medication. We are interestd in calculating the reliability of this measure in EHR data. Here, we aggregate this binomial data by \textit{site}, a grouping of physicians in the same facility. According to [ref] we calculate the $\hat{\sigma}^2_{\text{binomial}}$ for each site and the between variance. A typical model choice for this problem is \textit{Beta-Binomial model} written
 
@@ -114,5 +116,7 @@ Where the component of each $\theta_i$ is indicated by $z_i$. However, the reade
 We see that the between variance has a much tighter highest probaility density interval comparing the Dirichlet Process model to the baseline. Indeed, the between variance approximated by the relaxed Dirichlet Process model appears very similar to the Beta-Mixture model with no model misspecification. Similarly, the credible interval of the reliability is much narrower with the Dirichlet Process than the Beta-Binomial model. \\
 
 In this example, the semiparametric Dirichlet Process approach has a relatively large improvement over the misspecificed Beta-Binomial Model. However, the reader may note that the scale of the ranges is very small, and reason that this difference is not meaningfully large. However, often times EHR data has worse resolution than the simulated data. For example, the size of the sites may be much smaller, or the number of sites may not be as large. Due  to this issue, any reduction in posterior variance through avoiding model misspecification is helpful in a real life example.
+
+\bibliography{references}
 
 \end{document}
