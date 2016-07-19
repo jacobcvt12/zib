@@ -8,6 +8,7 @@
 \usepackage{graphicx}
 \usepackage{enumerate}
 \usepackage{hyperref}
+\usepackage{float}
 \usetikzlibrary{matrix}
 
 \hypersetup{
@@ -54,7 +55,7 @@ where the variance between the souces follows the definition of a Beta distribut
 
 To approximate the parameters for such a Beta-Mixture Binomial model, we consider representation in Figure~\ref{fig:diagram}. In this figure, we show the relationship of the parameters. For us, the parameters of interest are those highlighted in {\color{blue}blue}. The only portion of this diagram that is actually observed is the data, highlighted in {\color{orange}orange}. The rest of the parameters are nuisance parameters invented to improve the performance of the Markov Chain Monte Carlo. \\
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}
 
@@ -129,12 +130,12 @@ Three models were fit to this simulated data
 
 Code for the simulation and model fit can be found at \url{https://github.com/jacobcvt12/zib}.
 
-\begin{figure}
+\begin{figure}[H]
 \includegraphics{variance}
 \captionof{figure}{Posterior Variance}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 \includegraphics{reliability}
 \captionof{figure}{Reliability estimate}
 \end{figure}
