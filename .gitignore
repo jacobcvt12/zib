@@ -8,3 +8,5 @@ zib.Rproj
 *.log
 *.pdf
 *.swp
+*.bbl
+*.blg
