@@ -87,7 +87,7 @@ Next, we consider the $\theta$'s to be draws from a mixture of Beta's, each with
     \theta_i \sim \text{Beta}(\alpha_k, \beta_k)
 \end{equation}
 
-Where the component of each $\theta_i$ is indicated by $z_i$. However, the reader will note that the diagram indicates that the Beta distributions for the $\theta_i$'s is parameterized in terms of $\mu$ (mean) and $\sigma^2$ (variance). This is a somewhat artifical construction to improve mixing. Instead we place a Beta$(1, 1)$ prior on the means and a Uniform$(0, \mu * (1-\mu))$ prior on the variance given the mean.
+Where the component of each $\theta_i$ is indicated by $z_i$. However, the reader will note that the diagram indicates that the Beta distributions for the $\theta_i$'s is parameterized in terms of $\mu$ (mean) and $\sigma^2$ (variance). This is a somewhat artifical construction to improve mixing. Instead we place a Beta$(1, 1)$ prior on the means and a Uniform$(0, \mu * (1-\mu))$ prior on the variance given the mean. \\
 
 This mixture model performs very well, and reduces the uncertainty of the between variance compared to the misspecified Beta Binomial model. However, a mixture model requires an \textit{a priori} specifiction of the number of components. Sometimes, we have such prior knowledge - for example, we may know that sites have either a high probability of listing a patient on a mediciation or a low probability. But often we have no such prior knowledge. 
 
@@ -97,10 +97,7 @@ A solution arrives from the field of \textbf{Nonparametric Bayesian Statistics}.
 \theta_i \sim \sum_i^{\infty} pi_i \times \text{Beta}(\alpha_k, \beta_k)
 \end{equation}
 
-In practice, an infinite mixture like \eqref{eq:infinitemix-betabinom} is implemented as a \textbf{Dirichlet Process}.
-
-
-
+In practice, an infinite mixture like \eqref{eq:infinitemix-betabinom} is implemented as a \textbf{Dirichlet Process}~\cite{gelman2004}. A Dirichlet Process can be considered as an infinite dimensional \textit{distribution over distributions} using some base probability measure. For us, we consider the mixing distribution to be a Dirichlet Process over a Beta$(1, 1)$ distribution. While we know longer can make inference on the components as easily, we can still make inference on characteristics of the Dirichlet Process, such as the \textit{variance}, which is the only important piece for us. This approach allows us to use a flexible \textit{Nonparametric} approach without forcing the data into a model that may not fit well.
 
 \section{Results}
 
