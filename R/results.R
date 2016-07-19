@@ -113,7 +113,7 @@ ggplot(rel.data, aes(x=id, y=X50.)) +
   geom_ribbon(aes(ymin=X2.5., ymax=X97.5.),
               fill="blue",
               alpha=0.05) +
-  facet_wrap(~model) +
+  facet_wrap(~model, nrow=3) +
   scale_x_continuous(breaks=NULL) +
   xlab("") +
   ylab("Reliability")
