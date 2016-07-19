@@ -21,7 +21,9 @@
 
 \section{Introduction}
 
-When we have binomial data from different (but related) sources, we often want to share information between them. However, differences between the sources causes a false reduction in variance to pool the data together, and modeling them separately loses information. In this instance, I was interested in the variance between the sources. A typical model choice is a \textit{Beta-Binomial model} written
+EHR data is not perfect. The "accuracy" of individual measurements is not perfect. One measure of this "accuracy" is \textbf{reliability}. \Big{\textit{definition and ref here}}. Typically, reliability is estimated from data with repeat measurements. However, this idea is logistically impossible to implement in EHR data, as there is usually only one set of EHR data. Instead, one approach is to use a hierarchical model and calculate the "signal to noise" of the measure [ref].
+
+In our example, we have information about combination therapy for heart medication. We are interestd in calculating the reliability of this measure in EHR data. Here, we aggregate this binomial data by \textit{site}, a grouping of physicians in the same facility. According to [ref] we calculate the $\hat{\sigma}^2_{\text{binomial}}$ for each site and the between variance. A typical model choice for this problem is \textit{Beta-Binomial model} written
 
 \begin{equation}\label{betabinom}
 \theta_i \sim \text{Beta}(\alpha, \beta)
@@ -43,7 +45,7 @@ A solution arrives from the field of \textbf{Nonparametric Bayesian Statistics}.
 \theta_i \sim \sum_i^{\infty} pi_i \times \text{Beta}(\alpha_k, \beta_k)
 \end{equation}
 
-In practice, an infinite mixture like \eqref{eq:infinitemix-betabinom} is implemented as a \textbf{Dirichlet Process Mixture}. Here, I have elected to use \eqref{eq:finitemix-betabinom}, but with a large $K$.
+In practice, an infinite mixture like \eqref{eq:infinitemix-betabinom} is implemented as a \textbf{Dirichlet Process}.
 
 \begin{figure}
 \centering
