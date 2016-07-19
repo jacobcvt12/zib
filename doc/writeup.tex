@@ -32,13 +32,13 @@ In our example, we simulate binomial data similar to real life presence/absence 
 \theta_i \sim \text{Beta}(\alpha, \beta)
 \end{equation}
 
-where the variance between the souces follows the definition of a Beta distribution with the approximated $\alpha, \beta$ parameters. However, the problem with \eqref{betabinom} is that we force the typically uni-modal assumption on the underylying distribution of the $\theta$'s. A natural extension is to use a \textit{mixture of Beta} distributions for the hierarchical distribution.
+where the variance between the souces follows the definition of a Beta distribution with the approximated $\alpha, \beta$ parameters. However, the problem with \eqref{betabinom} is that we force the typically uni-modal assumption on the underylying distribution of the $\theta$'s. Such model misspecification will not influence the estimates of $\hat{\sigma}^2_{\text{binomial}}$, but it can have an effect on the approximation of the between variance. Thus, a natural extension is to use a \textit{mixture of Beta} distributions for the hierarchical distribution.
 
 \begin{equation}\label{eq:finitemix-betabinom}
 \theta_i \sim \sum_i^K pi_i \times \text{Beta}(\alpha_k, \beta_k)
 \end{equation}
 
-\eqref{eq:finitemix-betabinom} allows for a more flexible hierarchical distribution. However, we have now introduced a different problem - how do you decide on $K$?
+\eqref{eq:finitemix-betabinom} allows for a more flexible hierarchical distribution. 
 
 \section{Methods}
 
