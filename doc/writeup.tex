@@ -111,7 +111,7 @@ In practice, an infinite mixture like \eqref{eq:infinitemix-betabinom} is implem
 
 \section{Results}
 
-To assess the performance of these models, we simulated the 100 observations as
+To assess the performance of these models, we simulated 100 observations from
 
 \begin{equation}\label{eq:data-sim}
     \begin{split}
@@ -128,9 +128,9 @@ Three models were fit to this simulated data
     \item The Dirichlet Process model
 \end{enumerate}
 
-Code for the simulation and model fit can be found at \url{https://github.com/jacobcvt12/zib}.
+Code for the simulation and model fit can be found at \url{https://github.com/jacobcvt12/zib}. \\
 
-First, we compare the approximations for the between variance. In this plot, the true between variance (according to data simulation model) is colored in orange. 95\% highest posterior density intervals for each model are colored in blue.
+First, we compare the approximations for the between variance. In this plot, the true between variance (according to above model for simulation) is colored in orange. 95\% highest posterior density intervals for each model are colored in blue.
 
 \begin{figure}[H]
 \includegraphics{variance}
@@ -150,9 +150,9 @@ Where $\hat{\sigma}^2_{\text{binomial},i}$ is the posterior variance of the indi
 \captionof{figure}{Reliability estimate}
 \end{figure}
 
-We see that the between variance has a much tighter highest probaility density interval comparing the Dirichlet Process model to the baseline. Indeed, the between variance approximated by the relaxed Dirichlet Process model appears very similar to the Beta-Mixture model with no model misspecification. Similarly, the credible interval of the reliability is much narrower with the Dirichlet Process than the Beta-Binomial model. \\
+We see that the between variance has a much tighter highest posterior density interval comparing the Dirichlet Process model to the base model. Indeed, the between variance approximated by the relaxed Dirichlet Process model appears very similar to the Beta-Mixture model. Similarly, the credible interval of the reliability is much narrower with the Dirichlet Process than the Beta-Binomial model. \\
 
-In this example, the semiparametric Dirichlet Process approach has a relatively large improvement over the misspecificed Beta-Binomial Model. However, the reader may note that the scale of the ranges is very small, and reason that this difference is not meaningfully large. However, often times EHR data has worse resolution than the simulated data. For example, the size of the sites may be much smaller, or the number of sites may not be as large. Due  to this issue, any reduction in posterior variance through avoiding model misspecification is helpful in a real life example.
+In this example, the semiparametric Dirichlet Process approach sees a relatively large improvement over the misspecificed Beta-Binomial Model. The reader may note that the scale of the ranges is very small, and reason that this difference is not meaningfully large. However, EHR data frequently has worse resolution than the simulated data. For example, the size of the sites may be much smaller, or the number of sites may not be as large. Due to this issue, any reduction in posterior variance through avoiding model misspecification is helpful in a real life example. Thus, the Dirichlet Process prior model provides an important alternative for calculating the reliability of EHR measures.
 
 \bibliography{references}
 
