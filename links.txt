@@ -1,6 +1,0 @@
-https://en.wikipedia.org/wiki/Mixture_distribution#Moments
-https://www.ceremade.dauphine.fr/~xian/mixo.pdf
-https://www.amazon.com/Handbook-Statistics-25-Bayesian-Computation/dp/0444515399
-http://www.sciencedirect.com/science/journal/01679473/51/11
-http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.330.1347&rep=rep1&type=pdf
-http://link.springer.com/article/10.1007%2Fs11222-006-8451-7
