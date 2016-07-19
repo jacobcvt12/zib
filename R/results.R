@@ -74,7 +74,7 @@ var.data.hpd <- var.data %>%
     summarise(hpdl=HPDinterval(as.mcmc(between.var))[1],
               hpdu=HPDinterval(as.mcmc(between.var))[2])
 
-pdf("doc/variance.pdf")
+pdf("doc/variance.pdf", width=5, height=4)
 ggplot(var.data, aes(x=between.var)) +
     geom_density() +
     geom_vline(data=var.data.hpd, aes(xintercept=hpdl),
@@ -85,8 +85,7 @@ ggplot(var.data, aes(x=between.var)) +
                linetype=2) +
     facet_wrap(~model, nrow=3) +
     scale_y_continuous(breaks=NULL) +
-    xlab("Between Variance") +
-    ggtitle("Comparison of Between Variance Approximations")
+    xlab("Between Variance")
 dev.off()
 
 # graphic of reliability
@@ -108,7 +107,7 @@ rel.data <- bind_rows(rel.bb, rel.bmb, rel.dpb) %>%
                                  "Beta-Mixture Binomial",
                                  "DP Binomial")))
 
-pdf("doc/reliability.pdf")
+pdf("doc/reliability.pdf", width=5, height=4)
 ggplot(rel.data, aes(x=id, y=X50.)) +
   geom_line() +
   geom_ribbon(aes(ymin=X2.5., ymax=X97.5.),
@@ -117,7 +116,6 @@ ggplot(rel.data, aes(x=id, y=X50.)) +
   facet_wrap(~model) +
   scale_x_continuous(breaks=NULL) +
   xlab("") +
-  ylab("Reliability") +
-  ggtitle("Reliability Estimated by Site")
+  ylab("Reliability")
 dev.off()
 
