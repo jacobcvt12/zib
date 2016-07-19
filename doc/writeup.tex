@@ -24,9 +24,9 @@
 
 \section{Introduction}
 
-EHR data is not perfect~\cite{kanger2014}. The "accuracy" of individual measurements is not perfect. One measure of this "accuracy" is \textbf{reliability}. \textit{definition and ref here}. Typically, reliability is estimated from data with repeat measurements. However, this idea is logistically impossible to implement in EHR data, as there is usually only one set of EHR data. Instead, one approach is to use a hierarchical model and calculate the "signal to noise" of the measure [ref]. \\
+EHR medical data is not perfect~\cite{kanger2014}. The "accuracy" of individual measurements has a degree of variability, generally termed \textbf{relibiability}. Reliability occurs when the "repetition of an experiment or measurement gives the same results"~\cite{porta2008}.  Typically, reliability is estimated from data with repeat measurements. However, this idea is logistically difficult to implement in EHR data, as there is usually only one set of EHR data. Instead, one approach is to use a hierarchical model and calculate the "signal to noise" of the measure~\cite{Adams2009}. \\
 
-In our example, we have information about combination therapy for heart medication. We are interestd in calculating the reliability of this measure in EHR data. Here, we aggregate this binomial data by \textit{site}, a grouping of physicians in the same facility. According to [ref] we calculate the $\hat{\sigma}^2_{\text{binomial}}$ for each site and the between variance. A typical model choice for this problem is \textit{Beta-Binomial model} written
+In our example, we simulate binomial data similar to real life presence/absence indicators for medication in EHR. We are interestd in calculating the reliability of this measure in EHR data. Here, we aggregate this binomial data by \textit{site}, a grouping of physicians in the same facility. According to~\cite{Adams2009} we calculate the $\hat{\sigma}^2_{\text{binomial}}$ for each site and the between variance. A typical model choice for this problem is \textit{Beta-Binomial model} written
 
 \begin{equation}\label{betabinom}
 \theta_i \sim \text{Beta}(\alpha, \beta)
