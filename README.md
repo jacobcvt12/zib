@@ -12,10 +12,10 @@ data in `data`. To produce the data, models, and graphs, run
 
 ```
 R -f R/data.R
-R -f beta-binomial.R
-R -f betamix-binomial.R
-R -f dp-binomial.R
-R -f results.R
+R -f R/beta-binomial.R
+R -f R/betamix-binomial.R
+R -f R/dp-binomial.R
+R -f R/results.R
 ```
 
 To compile the latex document, run (from `doc/`) 
