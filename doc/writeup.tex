@@ -104,7 +104,7 @@ This mixture model performs very well, and reduces the uncertainty of the betwee
 A solution arrives from the field of \textbf{Nonparametric Bayesian Statistics}. Instead of \eqref{eq:finitemix-betabinom}, a more relaxed choice is an \textit{infinite mixture model}
 
 \begin{equation}\label{eq:infinitemix-betabinom}
-\theta_i \sim \sum_i^{\infty} pi_i \times \text{Beta}(\alpha_k, \beta_k)
+\theta_i \sim \sum_i^{\infty} \pi_i \times \text{Beta}(\alpha_k, \beta_k)
 \end{equation}
 
 In practice, an infinite mixture like \eqref{eq:infinitemix-betabinom} is implemented as a \textbf{Dirichlet Process}~\cite{gelman2004,ohlssen2007}. A Dirichlet Process can be considered as an infinite dimensional \textit{distribution over distributions} using some base probability measure. For us, we consider the mixing distribution to be a Dirichlet Process over a Beta$(1, 1)$ distribution, instead of a finite mixture of Beta distributions. While we no longer can make inference on the components as easily, we can still make inference on characteristics of the Dirichlet Process, such as the \textit{variance}, which is the only important piece for us. This approach allows us to use a flexible \textit{nonparametric} approach without forcing the data into a model that may not fit well.
